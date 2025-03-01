@@ -2,6 +2,10 @@
 // 3.2.5 - documentation-of added for languages requiring it
 // for English is identical to documentation
 // 3.2.6 - txtNoHosts
+// 3.2.8 - phpNotExists - txtProjectsLink -	phpExtensions - phpVersionsUse
+// 3.3.0 - txtPathNoSlash
+// 3.3.2 - txtSlashEnd
+// 3.3.7 - apacheLoadedModules
 
 $langues = array(
 	'langue' => 'English',
@@ -25,6 +29,7 @@ $langues = array(
 	'txtProjet' => 'Your Projects',
 	'txtNoProjet' => 'No projects yet.<br />To create a new one, just create a directory in \'www\'.',
 	'txtProjects' => 'These are your folders in %s<br />To use them as an http link, you must declare them as VirtualHost',
+	'txtProjectsLink' =>'However, you can use Right-Click, Wamp Settings, Warning: risky..., Allow links on projects...',
 	'txtAlias' => 'Your Aliases',
 	'txtNoAlias' => 'No Alias yet.<br />To create a new one, use the WAMPSERVER menu.',
 	'txtVhost' => 'Your VirtualHost',
@@ -38,6 +43,8 @@ $langues = array(
 	'txtNoIncVhost' => 'Uncomment or add <i>Include conf/extra/httpd-vhosts.conf</i> in file wamp/bin/apache/apache%s/conf/httpd.conf',
 	'txtNoVhostFile' => 'The file: %s does not exists',
 	'txtNoPath' => 'The path %s for %s does not exist (File %s)',
+	'txtSlashEnd' => 'The %s path for %s is terminated by a slash (File %s)',
+	'txtPathNoSlash' => 'The path %s for %s is not ended with a slash /',
 	'txtNotWritable' => 'The file: %s is not writable',
 	'txtNbNotEqual' => 'The number of %s does not match the number of %s in %s file',
 	'txtAddVhost' => 'Add a Virtual Host',
@@ -49,7 +56,11 @@ $langues = array(
 	'mysqlportUsed' => 'Port defined for MySQL: ',
 	'mariaportUsed' => 'Port defined for MariaDB: ',
 	'defaultDBMS' => 'default DBMS',
+	'phpNotExists' => 'PHP version doesn\'t exist',
 	'HelpMySQLMariaDB' => 'How to use MySQL and/or MariaDB?<br>What is a default DBMS?<br>How to change the default DBMS?<br>Go to the related help: Right-click Wampmanager icon -> Help -> MariaDB - MySQL',
 	'nolocalhost' => 'It\'s a bad idea to add localhost in the url of launching projects. It is best to define VirtualHost in<br />wamp/bin/apache/apache%s/conf/extra/httpd-vhosts.conf<br />file and not add localhost in the url.',
+	'phpExtensions' => 'Loaded PHP extensions',
+	'phpVersionsUse' => 'Use of PHP versions',
+	'apacheLoadedModules' => 'Loaded Apache modules',
 	);
 ?>
