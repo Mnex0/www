@@ -1,0 +1,53 @@
+<!--
+\\Author: Thibault Napoléon "Imothep"
+\\Company: ISEN Yncréa Ouest
+\\Email: thibault.napoleon@isen-ouest.yncrea.fr
+\\Created Date: 23-Jan-2018 - 23:17:36
+\\Last Modified: 23-Aug-2024 - 14:01:31
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name="author" content="Thibault Napoléon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>TP n°2 - JSON</title>
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+      integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- JS Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"
+      integrity="sha512-7Pi/otdlbbCR+LnW+F7PwFcSDJOuUJB3OxtEHbg4vSMvzvJjde4Po1v4BR9Gdc9aXNUNFVUY+SK51wWT8WF0Gg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/clock.js" defer></script>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="container">
+      <br>
+      <h1>TP n°2 <small>JSON</small></h1>
+      <hr>
+    </header>
+
+    <!-- Errors -->
+    <section id="errors" class="container alert alert-danger" style="display: none">
+    </section>
+    
+    <!-- Clock -->
+    <section class="container col-md-4 offset-md-4">
+      <h4 id='title'></h4>
+      <br>
+      <canvas id="clock" width="400" height="400" style="background-color:#333"></canvas>
+    </section>
+  </body>
+</html>

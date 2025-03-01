@@ -1,0 +1,96 @@
+body
+{
+	background-color: grey;
+	
+}
+
+h1, h2 
+{
+	text-align: center;
+}
+
+form
+{
+	display: block;
+	margin: 0 auto;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: white;
+}
+
+form div	
+{
+	align-items: center;
+}
+
+div
+{
+	margin: 0%;
+	padding: 0%;
+}
+
+form *
+{
+	margin-top: 1%;
+	margin-bottom: 1%;
+}
+
+form > div > input
+{
+	inline-size: 46.5%;
+	margin: 0%;
+	margin-right: 2.5%;
+	padding: 0%;
+}
+
+form > div > span
+{
+	text-align: center;
+	inline-size: 5%;
+	margin: 0%;
+	padding: 0%;
+}
+
+form > div > select
+{
+	margin: 0%;
+	inline-size: 45%;
+	margin-left: 2.5%;
+	padding: 0%;
+}
+
+li
+{
+	background-color: #f1f1f1;
+	align-items: center;
+	border-radius: 10px;
+}
+
+li input
+{
+	width: 20px;
+	height: 20px;
+	margin-left: 10px;
+}
+
+li > button
+{
+	margin: 0%;
+	padding: 0%;
+	border: 0px;
+	height: 20px;
+	background-color: #f1f1f1;
+}
+
+
+
+button > img
+{
+	width: 2.2pc;
+	height: 3pc;
+	margin: 0%;
+	padding: 0%;
+	border: 0px;
+	background-color: #f1f1f1;
+	pointer-events: none;
+}
