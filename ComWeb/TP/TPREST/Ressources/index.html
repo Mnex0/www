@@ -1,0 +1,83 @@
+<!--
+\\Author: Thibault Napoléon "Imothep"
+\\Company: ISEN Yncréa Ouest
+\\Email: thibault.napoleon@isen-ouest.yncrea.fr
+\\Created Date: 23-Jan-2018 - 23:17:36
+\\Last Modified: 05-Feb-2024 - 10:33:22
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name="author" content="Thibault Napoléon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>TP n°3 - REST</title>
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+      integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- JS Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"
+      integrity="sha512-X/YkDZyjTf4wyc2Vy16YGCPHwAY8rZJY+POgokZjQB2mhIRFJCckEGc6YyX9eNsPfn0PzThEuNs+uaomE5CO6A=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/ajax.js" defer></script>
+    <script src="js/tweets.js" defer></script>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="container">
+      <br>
+      <h1>TP n°3 <small>REST</small></h1>
+      <hr>
+    </header>
+
+    <!-- Errors -->
+    <section id="errors" class="container alert alert-danger" style="display: none">
+    </section>
+    
+    <!-- Menu -->
+    <section class="container">
+      <div class="btn-group float-end" role="group">
+        <button id="all-button" type="button" class="btn btn-light">
+          <i class="fa fa-list-alt"></i>
+        </button>
+        <button id="my-button" type="button" class="btn btn-light">
+          <i class="fa fa-user"></i>
+        </button>
+      </div>
+    </section>
+    
+    <!-- Tweets  -->
+    <section>
+      <!-- Tweets list -->
+      <div id="tweets" class="container">
+        <h3>Liste des tweets</h3>
+      </div>
+      
+      <!-- Add tweet -->
+      <div id="tweet-add" class="container">
+        <form>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Tweet ></span>
+            </div>
+            <input type="text" class="form-control" id="tweet" placeholder="Entrez votre tweet" autofocus required>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-success float-end">
+            <i class="fa fa-paper-plane"></i> Envoyer
+          </button>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

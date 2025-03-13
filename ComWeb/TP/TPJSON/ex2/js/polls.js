@@ -50,11 +50,9 @@ function displayPoll(poll)
   for (let i = 1; i < 4; i++)
   {
     let score = (100*parseFloat(poll['option'+i+'score'])/parseFloat(poll.participants)).toFixed(2);
-    document.getElementById('poll-title').innerHTML = `
-      <div class="d-flex justify-content-between">
-        <span>${poll["title"]}</span>
-        <span class="badge rounded-pill text-bg-primary">${poll.participants}</span>
-      </div>`;
+    document.getElementById('card-header').innerHTML = `
+        <h4 id="poll-title">${poll["title"]}</h4>
+        <span class="badge rounded-pill text-bg-primary float-end">${poll.participants}</span>`; //On met le badge "classic" à la fin de la div avec "float-end"
     document.getElementById('poll-option'+i).innerHTML = `
       ${poll['option'+i]}
       <div class="progress" role="progressbar" aria-label="${poll["option"+i]}" aria-valuenow="${score}" aria-valuemin="0" aria-valuemax="100">

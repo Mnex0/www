@@ -4,21 +4,42 @@ async function requestThumbnails()
 {
     const photos = await fetch('php/request.php/photos/');
     if (photos.ok)
-        displayThumbnails(await photos.text());
+        displayThumbnails(await photos.json());
     else
-        console.log('HTTP error:' + photos.status);
+        displayError(photos.status);
 }
 
 function displayThumbnails(ThumbnailsElement)
 {
-    document.getElementById('photo').innerHTML = ThumbnailsElement;
+    for (let i = 0; i < Object.keys(ThumbnailsElement).length; ++i)
+    {
+        document.getElementById('photo').innerHTML += `
+        <div class="col-xs-2 col-md-2">
+        <img id="${i+1}" id="photo-small" photoid="${i+1}" src="${ThumbnailsElement[i]["small"]}"
+        class="img-thumbnail" onclick="displayPhoto(this.id)">
+        </div>
+        `;
+    }
 }
 
-async function requestError()
+async function displayPhoto(id)
 {
-    const error = await fetch('php/request.php/photos/');
-    if (error.ok)
-        displayError(error);
+    let response = await fetch('php/request.php/photos/'+id);
+    if (response.ok)
+        displayThumbnail(await response.json());
+    else
+        displayError(response.status);
+}
+
+async function displayThumbnail(photo)
+{
+    if (photo)
+    {
+        document.getElementById("largephoto").innerHTML =`
+        <h4>${photo["title"]}</h4>
+        <img id="largethumbnail" id="photo-large" src="${photo["large"]}">
+        `;
+    }
 }
 
 function displayError(error)
@@ -40,5 +61,4 @@ function main()
 {
     requestThumbnails();
 }
-
 main();

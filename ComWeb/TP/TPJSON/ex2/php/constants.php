@@ -13,4 +13,3 @@
   define('DB_NAME', 'comweb_tp');
   define('DB_SERVER', 'localhost');
   define('DB_PORT', '3306');
-?>

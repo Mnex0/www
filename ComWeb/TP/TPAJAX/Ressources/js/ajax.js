@@ -2,11 +2,11 @@
 
 async function requestTimestamp() //Bien utiliser 'async' pour utiliser 'await'
 {
-    const date = await fetch('php/timestamp.php');
+    const date = await fetch('php/timestamp.php'); //On fait une requête sur le fichier timestamp.php qui renvoie le temps actuel, on s'assure bien d'avoir la réponse avant de continuer le programme
     if (date.ok)
         displayTimestamp(await date.text()); //Faire un return est risqué car éffectué avant d'avoir reçu la réponse. Il ne s'affiche alors qu'une promesse
     else
-        console.log('HTTP error:' + date.status);
+        displayError(date.status); //On affiche l'erreur en question
 }
 
 function displayTimestamp(timestampElement)
@@ -39,7 +39,7 @@ function displayError(error)
 function main()
 {
     setInterval(requestTimestamp, 1000); //Fait un appel régulier de cette fonction toutes les 1000 ms
-    setInterval(requestError, 5000);
+    setInterval(requestError, 5000); //On affiche
 }
 
 main();
