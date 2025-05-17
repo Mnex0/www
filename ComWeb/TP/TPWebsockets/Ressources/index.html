@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
     <!-- Meta tags -->
@@ -22,44 +22,37 @@
         integrity="sha512-X/YkDZyjTf4wyc2Vy16YGCPHwAY8rZJY+POgokZjQB2mhIRFJCckEGc6YyX9eNsPfn0PzThEuNs+uaomE5CO6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/chat.js" defer></script>
+    <!--script src="js/serveur.js" defer></script -->
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="container">
-        <br />
-        <h1>TP n°4 <small>Websockets</small></h1>
-        <hr />
-    </header>
-
-    <!-- Errors -->
-    <section id="errors" class="container alert alert-danger" style="display: none"></section>
-
-    <!-- Chat -->
-    <section>
-        <!-- mess list -->
-        <div id="chat" class="container">
-            <h3>Chat</h3>
-
-        </div>
-
-        <!-- Add mess -->
-        <div id="mess-add" class="container">
-            <form>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Message ></span>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0"><i class="fas fa-comments"></i> Chat TP WebSockets</h4>
                     </div>
-                    <input type="text" class="form-control" id="mess" placeholder="Entrez votre message" autofocus
-                        required />
+                    <div class="card-body">
+                        <form id="chat-send">
+                            <textarea id="chat-room" class="form-control mb-3" readonly disabled></textarea>
+                            <div class="input-group">
+                                <input type="text" id="chat-message" class="form-control"
+                                    placeholder="Tapez votre message..." autocomplete="off">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-paper-plane"></i> Envoyer
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <br />
-                <button type="submit" class="btn btn-success float-end">
-                    <i class="fa fa-paper-plane"></i> Envoyer
-                </button>
-            </form>
+            </div>
         </div>
-    </section>
+    </div>
+
+    <!-- Script JS pour le chat -->
+    <script src="js/chat.js"></script>
+    <!--script src="js/tp-websockets-js.js"></script-->
 </body>
 
 </html>
