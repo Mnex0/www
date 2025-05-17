@@ -22,6 +22,7 @@ if ($id == '')
   $id = NULL;
 $data = false;
 // Photos request.
+
 if ($requestRessource == 'photos')
 {
   if ($id != NULL)
@@ -29,15 +30,23 @@ if ($requestRessource == 'photos')
   else
     $data = dbRequestPhotos($db);
 }
-// Send data to the client.
+elseif ($requestRessource == 'comments')
+{
+  $data = dbRequestComments($db, intval($id));
+}
+/*elseif ($requestRessource == 'addcomment')
+{
+
+}*/
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-control: no-store, no-cache, must-revalidate');
 header('Pragma: no-cache');
-if ($data !== false)
+if ($data != false)
 {
   header('HTTP/1.1 200 OK');
   echo json_encode($data);
 }
 else
   header('HTTP/1.1 400 Bad Request');
+
 exit;

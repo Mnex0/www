@@ -56,3 +56,67 @@ function dbRequestPhoto($db, $id)
   }
   return $result;
 }
+
+function dbRequestComments($db, $photoId)
+{
+  try
+  {
+    $request = 'SELECT c.id, c.userLogin, C.photoId, c.comment FROM comments c
+    JOIN photos p
+    ON c.photoId = p.id 
+    WHERE c.photoId=:photoId;';
+    $statement = $db->prepare($request);
+    $statement->bindParam(':photoId', $photoId, PDO::PARAM_INT);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC); // Use fetchAll to get all rows
+  }
+  catch (PDOException $exception)
+  {
+    error_log('Request error: '.$exception->getMessage());
+    return false;
+  }
+  return $result;
+}
+/*
+function dbRequestComment($db, $photoId, $idCom)
+{
+  try
+  {
+    $request = 'SELECT * FROM comments c
+    JOIN photos p
+    ON c.photoId = p.id 
+    WHERE c.photoId=:photoId AND c.id =:idCom';
+    $statement = $db->prepare($request);
+    $statement->bindParam(':photoId', $photoId, PDO::PARAM_INT);
+    $statement->bindParam(':idCom', $idCom, PDO::PARAM_INT);
+    $statement->execute();
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+  }
+  catch (PDOException $exception)
+  {
+    error_log('Request error: '.$exception->getMessage());
+    return false;
+  }
+  return $result;
+}
+*/
+function dbAddComment($db, $userLogin, $photoId, $comment)
+{
+  try
+  {
+    $request = 'INSERT INTO comments
+    VALUES(:ul,:pid,:com)';
+    $statement = $db->prepare($request);
+    $statement->bindParam(':ul', $userLogin, PDO::PARAM_INT);
+    $statement->bindParam(':pid', $photoId, PDO::PARAM_INT);
+    $statement->bindParam(':com', $comment, PDO::PARAM_INT);
+    $statement->execute();
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+  }
+  catch (PDOException $exception)
+  {
+    error_log('Request error: '.$exception->getMessage());
+    return false;
+  }
+  return $result;
+}

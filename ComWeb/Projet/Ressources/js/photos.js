@@ -39,6 +39,28 @@ async function displayThumbnail(photo)
         <h4>${photo["title"]}</h4>
         <img id="largethumbnail" id="photo-large" src="${photo["large"]}">
         `;
+        document.getElementById("comments-add").style.display = "block";
+        document.getElementById("comments").style.display = "block";
+        let response = await fetch('php/request.php/comments/'+photo["id"]);
+        if (response.ok)
+        {
+            const comments = await response.json();
+            document.getElementById("comments").innerHTML = '';
+            for (let i = 0; i < comments.length; ++i)
+            {
+                document.getElementById("comments").innerHTML += `
+                <div class="row">
+                    <div class="col-1" style="color: blue; padding: 0;">${comments[i]["userLogin"]}</div>
+                    <div class="col-7" style="text-align: left;">${comments[i]["comment"]}</div>
+                </div>
+                `;
+                console.log(comments[i]["comment"]);
+            }
+        }
+        else
+        {
+            document.getElementById("comments").innerHTML += `<h4>Pas de commentaire disponible</h4>`;
+        }
     }
 }
 
