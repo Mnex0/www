@@ -61,7 +61,7 @@ function dbRequestComments($db, $photoId)
 {
   try
   {
-    $request = 'SELECT c.id, c.userLogin, C.photoId, c.comment FROM comments c
+    $request = 'SELECT c.id, c.userLogin, c.photoId, c.comment FROM comments c
     JOIN photos p
     ON c.photoId = p.id 
     WHERE c.photoId=:photoId;';

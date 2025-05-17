@@ -79,6 +79,95 @@ function displayError(error)
     document.getElementById('errors').innerHTML = '<i class="fa-solid fa-circle-xmark"></i>' + " Error " + error.status + " : " + messages[error.status];
 }
 
+
+let login = 'cir2';
+let currentTitle = 'Comments';
+
+// Display all comments.
+ajaxRequest('GET', 'php/request.php/comments/', displayComments);
+document.getElementById('all-button').addEventListener('click', () => 
+{
+  currentTitle = 'Comments';
+  ajaxRequest('GET', 'php/request.php/comments/', displayComments);
+});
+
+// Display my comments.
+document.getElementById('my-button').addEventListener('click', () => 
+{
+  currentTitle = 'My comments';
+  ajaxRequest('GET', 'php/request.php/comments/?login=' + login, displayComments);
+});
+
+// Add comment.
+document.getElementById('comments-add').addEventListener('submit', (event) => 
+{
+  event.preventDefault();
+  let value = document.getElementById('comment').value;
+  ajaxRequest('POST', 'php/request.php/comments/', () =>
+  {
+    ajaxRequest('GET', 'php/request.php/comments/', displayComments);
+  }, 'login=' + login + '&text=' + value);
+  document.getElementById('comment').value = '';
+});
+
+//------------------------------------------------------------------------------
+//--- ModifyComments -------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Modify comments.
+function modifyComments()
+{
+  const modifyButtons = document.querySelectorAll('.mod');
+  modifyButtons.forEach(e => e.addEventListener('click', (event) =>
+  {
+    let value = event.target.closest('.mod').getAttribute('value');
+    ajaxRequest('PUT', 'php/request.php/comments/' + value, () =>
+    {
+      ajaxRequest('GET', 'php/request.php/comments/', displayComments);
+    }, 'login=' + login + '&text=' + prompt('Nouveau comment :'));
+  }));
+}
+
+//------------------------------------------------------------------------------
+//--- DeleteComments -------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Delete comments.
+function deleteComments()
+{
+  const deleteButtons = document.querySelectorAll('.del');
+  deleteButtons.forEach(e => e.addEventListener('click', (event) =>
+  {
+    let value = event.target.closest('.del').getAttribute('value');
+    ajaxRequest('DELETE', 'php/request.php/comments/' + value + '?login=' +
+      login, () =>
+    {
+      ajaxRequest('GET', 'php/request.php/comments/', displayComments);
+    });
+  }));
+}
+
+//------------------------------------------------------------------------------
+//--- displayComments ------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Display comments.
+// \param comments The comments data received via the Ajax request.
+function displayComments(comments)
+{
+  // Fill comments.
+  document.getElementById('comments').innerHTML = '<h3>' + currentTitle + '</h3>';
+  for (let comment of comments)
+    document.getElementById('comments').innerHTML += '<div class="card">' +
+      '<div class="card-body">' + comment.login + ' : ' + comment.text +
+      '<div class="btn-group float-end" role="group">' +
+      '<button type="button" class="btn btn-light float-end mod"' +
+      ' value="' + comment.id + '"><i class="fa fa-edit"></i></button>' +
+      '<button type="button" class="btn btn-light float-end del"' +
+      ' value="' + comment.id + '"><i class="fa fa-trash"></i></button>' +
+      '<div></div></div>';
+  modifyComments();
+  deleteComments();
+}
+
+
 function main()
 {
     requestThumbnails();

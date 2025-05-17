@@ -33,11 +33,17 @@ if ($requestRessource == 'photos')
 elseif ($requestRessource == 'comments')
 {
   $data = dbRequestComments($db, intval($id));
+  //Gestion de l'absence de commentaires à faire
+  if (!$data)
+  {
+    $data = [["id"=>0,"userLogin"=>"None","photoId"=>$id,"comment"=>"No comment available"]];
+    exit;
+  }
 }
-/*elseif ($requestRessource == 'addcomment')
+elseif ($requestRessource == 'addcomment')
 {
 
-}*/
+}
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-control: no-store, no-cache, must-revalidate');
 header('Pragma: no-cache');
