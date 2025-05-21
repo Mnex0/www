@@ -42,8 +42,6 @@ async function displayComments(photoId, user = null) {
 }
 
 async function addComment(photoId, login, text) {
-    
-
     const response = await fetch('php/request.php/' + photoId + "/addcomment", {
         method: 'POST',
         headers: {
@@ -54,8 +52,11 @@ async function addComment(photoId, login, text) {
             text: text
         })
     });
-    const result = await response.json();
-    return result;
+    const result = await response;
+    if (result == true)
+        return true;
+    else
+        return false;
 }
 
 async function modifyComment(photoId, login, text, commentId) {

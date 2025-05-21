@@ -79,23 +79,22 @@ document.getElementById('my-button').addEventListener('click', () => {
 
 
 // Add comment.
-document.getElementById('new-comment').addEventListener('submit', (event) => {
-  event.preventDefault();
+document.querySelector('.btn-outline-success').addEventListener('click', () => {
   let value = document.getElementById('new-comment').value;
+  console.log(value);
   if (value.trim() === '') {
     alert('Attention : le champ ne peut pas être vide !');
   }
   else {
-    addComment(currentPhoto, login, value);
-    let filtre = null;
-    if (currentTitle == 'My comments') {
-      filtre = login;
+    if (addComment(currentPhoto, login, value)) {
+      let filtre = null;
+      if (currentTitle == 'My comments') {
+        filtre = login;
+      }
+      document.getElementById('new-comment').value = '';
     }
-    displayComments(currentPhoto, filtre);
-    /*ajaxRequest('POST', 'php/request.php/comments/', () => {
-      ajaxRequest('GET', 'php/request.php/comments/', displayComments);
-    }, 'login=' + login + '&text=' + value);*/
-    document.getElementById('comment').value = '';
+    else
+      console.log("Problème");
   }
 });
 

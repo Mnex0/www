@@ -43,17 +43,19 @@ elseif ($requestRessource == 'comments') {
 elseif ($requestRessource == 'addcomment' && $requestMethod == 'POST') {
   $user = $_POST["user"];
   $text = $_POST["text"];
-  if ($id && $user && $text)
-    $data = dbAddComment($db, $user, intval($id), $text);
+  if ($id && $user && $text) {
+    dbAddComment($db, $user, intval($id), $text);
+    $data = true;
+  } else
+    $data = false;
 }
-
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-control: no-store, no-cache, must-revalidate');
 header('Pragma: no-cache');
 if ($data) {
   header('HTTP/1.1 200 OK');
   echo json_encode($data);
-} else
-  header('HTTP/1.1 400 Bad Request');
+} //else
+//header('HTTP/1.1 400 Bad Request');
 
 exit;
