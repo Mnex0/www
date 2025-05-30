@@ -1,5 +1,3 @@
-#!/home/napoleon/.PythonEnvs/CommunicationsWeb/bin/python3
-"""CIR chat server using websockets."""
 import asyncio
 import websockets
 from websockets.asyncio.server import serve

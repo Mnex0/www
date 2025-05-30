@@ -2,21 +2,20 @@
 
 require_once('database.php');
 
-// Database connection.
+// Database connection
 $db = dbConnect();
 if (!$db) {
   header('HTTP/1.1 503 Service Unavailable');
   exit;
 }
 
-// Check the request.
+// Check the request
 $requestMethod = $_SERVER['REQUEST_METHOD'];
-error_log("DEBUG : RequestMethodUsed " . $requestMethod . " " . ($requestMethod == "POST"));
 $request = substr($_SERVER['PATH_INFO'], 1);
 $request = explode('/', $request);
 $requestRessource = array_shift($request);
 
-// Check the id associated to the request.
+// Check the photo id associated to the request
 $id = array_shift($request);
 if ($id == '')
   $id = NULL;
@@ -32,8 +31,7 @@ if ($requestRessource == 'photos') {
 
 //Unique comment request
 elseif ($requestRessource == 'comment' && $requestMethod == "GET") {
-  //$id est alors l'id du commentaire
-  error_log("DEBUG : Getting comment number " . $id);
+  //$id is the comment id there
   if ($id)
     $data = dbRequestUniqueComment($db, $id);
   else
@@ -42,7 +40,6 @@ elseif ($requestRessource == 'comment' && $requestMethod == "GET") {
 
 // Comments request
 elseif ($requestRessource == 'comments' && $requestMethod == "GET") {
-  error_log("DEBUG : Getting comments");
   $filter = array_shift($request);
   if ($id && $filter)
     $data = dbRequestComments($db, intval($id), $filter);
@@ -50,16 +47,14 @@ elseif ($requestRessource == 'comments' && $requestMethod == "GET") {
     $data = dbRequestComments($db, intval($id));
   else
     error_log("ERROR: id not defined");
-  //Gestion de l'absence de commentaires à faire
 }
 
 // Add Comments request : php/request.php/comments/1?user=''&text=''
 elseif ($requestRessource == 'comments' && $requestMethod == "POST") {
-  $jsonData = json_decode(file_get_contents('php://input'), true);
+  $jsonData = json_decode(file_get_contents('php://input'), true); // Getting the arguments
   $user = $jsonData["user"] ?? null;
-  $text = $jsonData["text"] ?? null;
+  $text = strip_tags($jsonData["text"]) ?? null; // strip_tags will prevent the user from adding html or hazardous code when adding comments
 
-  //error_log("DEBUG : I'm here !!!".$user.$text);
   if ($id && $user && $text) {
     dbAddComment($db, $user, intval($id), $text);
     $data = true;
@@ -85,7 +80,7 @@ elseif ($requestRessource == 'comments' && $requestMethod == "DELETE") {
 elseif ($requestRessource == 'comments' && $requestMethod == "PUT") {
   $jsonData = json_decode(file_get_contents('php://input'), true);
   $idCom = $jsonData["idCom"] ?? null;
-  $text = $jsonData["text"] ?? null;
+  $text = strip_tags($jsonData["text"]) ?? null;
   if ($id && $idCom) {
     dbModifyComment($db, $id, $idCom, $text);
     $data = true;
@@ -100,7 +95,7 @@ header('Pragma: no-cache');
 if ($data) {
   header('HTTP/1.1 200 OK');
   echo json_encode($data);
-} //else
-//header('HTTP/1.1 400 Bad Request');
+} else
+  header('HTTP/1.1 400 Bad Request');
 
 exit;

@@ -8,7 +8,6 @@ async function displayComments(photoId, user = null) {
     document.getElementById("comments").style.display = "block";
     document.getElementById("comment-title").innerHTML = `<h3>${currentTitle}</h3>`;
 
-
     let response;
     if (user) {
         response = await fetch('php/request.php/comments/' + photoId + '/' + user);
@@ -17,17 +16,17 @@ async function displayComments(photoId, user = null) {
         response = await fetch('php/request.php/comments/' + photoId);
     }
     if (response.ok) {
-        const text = await response.text();  // lire le corps brut
-        if (text.trim() === "") {
+        const text = await response.text();  // Read raw text
+        if (text.trim() === "") { // If empty then print no comments
             document.getElementById("comments").innerHTML = `<h5>Pas de commentaire disponible</h5>`;
-            return;
+            return; // Getting out of the prog
         }
 
-        const comments = JSON.parse(text);  // maintenant on sait que c'est du JSON valide
+        const comments = JSON.parse(text);  // Now we know that the text is not empty, we can take the json format back
         document.getElementById("comment-title").innerHTML = `<h3>${currentTitle}</h3>`;
         document.getElementById("comments").innerHTML = '';
 
-        for (let i = 0; i < comments.length; ++i) {
+        for (let i = 0; i < comments.length; ++i) { // Dynamically creating the comment cards -> no action given yet to the buttons
             document.getElementById("comments").innerHTML += `
             <div class="card">
                 <div class="card-body" style="text-align: left;">
@@ -38,16 +37,15 @@ async function displayComments(photoId, user = null) {
                 </div>
             </div>`;
         }
-        attachDeleteListeners(); //We bind these new buttons to their respective actions
+        attachDeleteListeners(); // We bind these new buttons to their respective actions
         attachModifyListeners();
     } else {
         document.getElementById("comments").innerHTML = `<h5>Pas de commentaire disponible</h5>`;
     }
-
 }
 
 async function addComment(photoId, login, text) {
-    const response = await fetch("php/request.php/comments/" + photoId, {
+    const response = await fetch("php/request.php/comments/" + photoId, { // Precising the method and the arguments taken in the url
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -63,7 +61,7 @@ async function addComment(photoId, login, text) {
 async function modifyComment(photoId, commentId, login, text) {
     const forLog = await fetch("php/request.php/comment/" + commentId);
     if (forLog.ok) {
-        const comm = await forLog.json(); //Check if the logins are the same
+        const comm = await forLog.json(); // Checking if the logins are the same
 
         if (login == comm["userLogin"]) {
             const mod = await fetch("php/request.php/comments/" + photoId, {
@@ -78,18 +76,17 @@ async function modifyComment(photoId, commentId, login, text) {
             });
             return mod.ok;
         }
-        else {
+        else { // If not, than deny the modification
             alert("Impossible : Vous n'êtes pas le propriétaire de ce commentaire. Vous êtes : " + login + " et le propriétaire est : " + comm["userLogin"]);
             return false;
         }
     }
 }
 
-//Delete comments : php/request.php/request.php/comments/1?idCom=4
 async function deleteComment(login, photoId, commentId) {
     const forLog = await fetch("php/request.php/comment/" + commentId);
     if (forLog.ok) {
-        const comm = await forLog.json(); //Check if the logins are the same
+        const comm = await forLog.json(); // Same than above
 
         if (login == comm["userLogin"]) {
             const del = await fetch("php/request.php/comments/" + photoId, {

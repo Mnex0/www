@@ -63,13 +63,13 @@ function displayError(error) {
 }
 
 
-// Display all comments.
+// Display all comments
 document.getElementById('all-button').addEventListener('click', async () => {
   currentTitle = 'All comments';
   await displayComments(currentPhoto);
 });
 
-// Display my comments.
+// Display my comments
 document.getElementById('my-button').addEventListener('click', async () => {
   currentTitle = 'My comments';
   await displayComments(currentPhoto, login);
@@ -77,7 +77,7 @@ document.getElementById('my-button').addEventListener('click', async () => {
 
 // Add comment button
 document.querySelector('.btn-outline-success').addEventListener('click', async (event) => {
-  event.preventDefault();
+  event.preventDefault(); // Prevent default sumbiting action
   let value = document.getElementById('new-comment').value;
   let filter = null;
   if (value.trim() === '') {
@@ -86,7 +86,7 @@ document.querySelector('.btn-outline-success').addEventListener('click', async (
   else {
     if (addComment(currentPhoto, login, value)) {
       if (currentTitle == 'My comments') {
-          filter = login;
+        filter = login;
       }
       document.getElementById('new-comment').value = '';
     }
@@ -96,12 +96,10 @@ document.querySelector('.btn-outline-success').addEventListener('click', async (
   await displayComments(currentPhoto, filter);
 });
 
-//Add comment input
+// Add comment input
 document.getElementById('new-comment').addEventListener('keydown', async (event) => {
   if (event.key === 'Enter') {
-    event.preventDefault(); // Empêche le comportement par défaut du form
-    
-    // Déclencher le même code que le bouton
+    event.preventDefault(); // Same code than above
     let value = document.getElementById('new-comment').value;
     let filter = null;
     if (value.trim() === '') {
@@ -120,16 +118,16 @@ document.getElementById('new-comment').addEventListener('keydown', async (event)
   }
 });
 
-//Delete comment : Because the buttons are created dynamically, this code must comes after
+// Delete comment : Because the buttons are created dynamically, this code must be called after they got created
 function attachDeleteListeners() {
-  //console.log("Attaching delete buttons");
-  const deleteButtons = document.querySelectorAll('[id^="del-"]');
+  const deleteButtons = document.querySelectorAll('[id^="del-"]'); // Attaching to all elements with the class "del-'id'"
   deleteButtons.forEach(button => {
     button.addEventListener('click', async (event) => {
       event.preventDefault(); // Just in case
       let filter = null;
       const idCom = parseInt(button.value);
-      if (isNaN(idCom)) {
+
+      if (isNaN(idCom)) { // In case the id is incorrect
         console.error('ID de commentaire invalide:', button.value);
         return;
       }
@@ -144,38 +142,10 @@ function attachDeleteListeners() {
       }
     });
   });
-  //console.log("Nombre de boutons trouvés:", document.querySelectorAll('[id^="del-"]').length);
 }
 
-//Old delete
-/*
-const deleteButtons = document.querySelectorAll('[id^="del-"]');
-deleteButtons.forEach(button => {
-  button.addEventListener('click', async (event) => {
-    event.preventDefault(); // Just in case
-    console.log("Clické");
-    let filter = null;
-    const idCom = parseInt(button.value);
-    if (isNaN(idCom)) {
-      console.error('ID de commentaire invalide:', button.value);
-      return;
-    }
-
-    try {
-      const response = await deleteComment(login, currentPhoto, idCom);
-      if (response.ok)
-        filter = currentTitle;
-      await displayComments(currentPhoto, filter);
-    } catch (error) {
-      console.error('Erreur lors de la suppression:', error);
-    }
-  });
-});
-*/
-
-//Modify comment
-function attachModifyListeners() {
-  //console.log("Attaching modify buttons");
+// Modify comment
+function attachModifyListeners() { // Same but for modification buttons
   const modifyButtons = document.querySelectorAll('[id^="mod-"]');
   modifyButtons.forEach(button => {
     button.addEventListener('click', async (event) => {
@@ -183,6 +153,7 @@ function attachModifyListeners() {
       let filter = null;
       let text = prompt("Entrez le nouveau commentaire à écrire : ", "default");
       const idCom = parseInt(button.value);
+
       if (isNaN(idCom)) {
         console.error('ID de commentaire invalide:', button.value);
         return;
@@ -198,7 +169,6 @@ function attachModifyListeners() {
       }
     });
   });
-  //console.log("Nombre de boutons trouvés:", document.querySelectorAll('[id^="mod-"]').length);
 }
 
 function main() {

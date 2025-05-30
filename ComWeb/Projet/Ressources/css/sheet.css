@@ -1,0 +1,5 @@
+.container .col-6.col-md-4,
+.row .col-6.col-md-4 {
+  padding: 0 !important;
+  margin: 0 !important;
+}
